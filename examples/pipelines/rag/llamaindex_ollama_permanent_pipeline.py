@@ -11,7 +11,7 @@ requirements: llama-index, llama-index-vector-stores-chroma, llama-index-llms-ol
 from typing import List, Union, Generator, Iterator
 from schemas import OpenAIChatMessage
 import os
-
+import logging
 from pydantic import BaseModel
 
 
@@ -74,6 +74,7 @@ class Pipeline:
         self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context)
 
         for doc in self.documents:
+            logging.info(f"Indexing file \"{doc}\"...")
             self.index.insert(doc)
 
         pass

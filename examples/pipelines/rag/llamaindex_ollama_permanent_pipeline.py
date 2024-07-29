@@ -70,7 +70,8 @@ class Pipeline:
         vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
         storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-        self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context, show_progress=True)
+        if len(self.documents) > 0:
+            self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context, show_progress=True)
 
         pass
 

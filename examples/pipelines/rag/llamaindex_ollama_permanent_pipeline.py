@@ -5,7 +5,7 @@ date: 2024-05-30
 version: 1.0
 license: MIT
 description: A pipeline for retrieving relevant information from a knowledge base using the Llama Index library with Ollama embeddings.
-requirements: llama-index, llama-index-llms-ollama, llama-index-embeddings-ollama
+requirements: llama-index, llama-index-vector-stores, llama-index-llms-ollama, llama-index-embeddings-ollama
 """
 
 from typing import List, Union, Generator, Iterator
@@ -25,6 +25,7 @@ class Pipeline:
     def __init__(self):
         self.documents = None
         self.index = None
+	self.name = "RAG ChromaDB"
 
         self.valves = self.Valves(
             **{

@@ -33,7 +33,7 @@ class Pipeline:
                 "LLAMAINDEX_MODEL_NAME": os.getenv("LLAMAINDEX_MODEL_NAME", "llama3"),
                 "LLAMAINDEX_EMBEDDING_MODEL_NAME": os.getenv("LLAMAINDEX_EMBEDDING_MODEL_NAME", "nomic-embed-text"),
                 "LLAMAINDEX_DB_DIR": os.getenv("LLAMAINDEX_DB_DIR", "/app/backend/data/db/"),
-                "LLAMAINDEX_INPUT_DIR": os.getenv("LLAMAINDEX_INPUTDIR", "/app/backend/data/input"),
+                "LLAMAINDEX_INPUT_DIR": os.getenv("LLAMAINDEX_INPUT_DIR", "/app/backend/data/input"),
             }
         )
 

@@ -74,6 +74,7 @@ class Pipeline:
         self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context)
 
         for doc in self.documents:
+            print(f"Indexing {doc}...")
             self.index.insert(doc)
 
         pass

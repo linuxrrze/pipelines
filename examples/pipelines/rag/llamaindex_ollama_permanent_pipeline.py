@@ -25,7 +25,7 @@ class Pipeline:
     def __init__(self):
         self.documents = None
         self.index = None
-	self.name = "RAG ChromaDB"
+        self.name = "RAG ChromaDB"
 
         self.valves = self.Valves(
             **{

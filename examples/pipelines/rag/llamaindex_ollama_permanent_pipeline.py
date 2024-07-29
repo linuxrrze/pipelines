@@ -39,6 +39,7 @@ class Pipeline:
             }
         )
 
+    # This function is called when the server is started.
     async def on_startup(self):
         import chromadb
         from llama_index.embeddings.ollama import OllamaEmbedding
@@ -56,8 +57,8 @@ class Pipeline:
             base_url=self.valves.LLAMAINDEX_OLLAMA_BASE_URL,
         )
 
-        # This function is called when the server is started.
         global documents, index
+        logging.info("Called on_startup")
 
         self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUT_DIR, recursive=True).load_data()
 

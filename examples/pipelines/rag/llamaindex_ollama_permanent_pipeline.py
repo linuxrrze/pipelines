@@ -21,6 +21,8 @@ class Pipeline:
         LLAMAINDEX_OLLAMA_BASE_URL: str
         LLAMAINDEX_MODEL_NAME: str
         LLAMAINDEX_EMBEDDING_MODEL_NAME: str
+        LLAMAINDEX_DB_DIR: str
+        LLAMAINDEX_INPUT_DIR: str
 
     def __init__(self):
         self.documents = None

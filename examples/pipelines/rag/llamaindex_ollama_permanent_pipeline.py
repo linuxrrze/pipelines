@@ -45,7 +45,7 @@ class Pipeline:
         from llama_index.llms.ollama import Ollama
         from llama_index.core import Settings, VectorStoreIndex, SimpleDirectoryReader
         from llama_index.vector_stores.chroma import ChromaVectorStore
-        from llama_index.core import StorageContext
+        from llama_index.core import StorageContext, load_index_from_storage
 	
         Settings.embed_model = OllamaEmbedding(
             model_name=self.valves.LLAMAINDEX_EMBEDDING_MODEL_NAME,
@@ -58,10 +58,9 @@ class Pipeline:
 
         global documents, index
 
-        self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUT_DIR, recursive=True).load_data()
 
         # initialize client, setting path to save data
-        db = chromadb.PersistentClient(path=self.valves.LLAMAINDEX_DB_DIR+"/chroma_db")
+        db = chromadb.PersistentClient(path=self.valves.LLAMAINDEX_DB_DIR)
 
         # create collection
         chroma_collection = db.get_or_create_collection("quickstart")
@@ -69,9 +68,13 @@ class Pipeline:
         # assign chroma as the vector_store to the context
         vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
         storage_context = StorageContext.from_defaults(vector_store=vector_store)
+        self.index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
-        if len(self.documents) > 0:
+        try:
+            self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUT_DIR, recursive=True).load_data()
             self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context, show_progress=True)
+        except ValueError:
+            pass
 
         pass
 

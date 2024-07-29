@@ -57,7 +57,7 @@ class Pipeline:
         # This function is called when the server is started.
         global documents, index
 
-        self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUTDIR, recursive=True).load_data()
+        self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUT_DIR, recursive=True).load_data()
 
         # initialize client, setting path to save data
         db = chromadb.PersistentClient(path=self.valves.LLAMAINDEX_DB_DIR+"/chroma_db")

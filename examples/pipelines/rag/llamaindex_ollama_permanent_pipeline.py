@@ -11,7 +11,6 @@ requirements: llama-index, llama-index-vector-stores-chroma, llama-index-llms-ol
 from typing import List, Union, Generator, Iterator
 from schemas import OpenAIChatMessage
 import os
-import logging
 from pydantic import BaseModel
 
 
@@ -58,7 +57,6 @@ class Pipeline:
         )
 
         global documents, index
-        logging.info("Called on_startup")
 
         self.documents = SimpleDirectoryReader(self.valves.LLAMAINDEX_INPUT_DIR, recursive=True).load_data()
 
@@ -72,11 +70,7 @@ class Pipeline:
         vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
         storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-        self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context)
-
-        for doc in self.documents:
-            logging.info(f"Indexing file \"{doc}\"...")
-            self.index.insert(doc)
+        self.index = VectorStoreIndex.from_documents(self.documents, storage_context=storage_context, show_progress=True)
 
         pass
 
